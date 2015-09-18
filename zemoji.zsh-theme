@@ -27,10 +27,10 @@ fi
 
 # TIME
 if [ ! -n "${TIME_SHOW+1}" ]; then
-  TIME_SHOW=false
+  TIME_SHOW=true
 fi
 if [ ! -n "${TIME_BG+1}" ]; then
-  TIME_BG=magenta
+  TIME_BG=NONE
 fi
 if [ ! -n "${TIME_FG+1}" ]; then
   TIME_FG=cyan
@@ -403,7 +403,6 @@ prompt_char() {
 
 build_prompt() {
   RETVAL=$?
-  prompt_time
   prompt_status
   prompt_rvm
   prompt_virtualenv
@@ -415,6 +414,12 @@ build_prompt() {
   prompt_end
 }
 
+## Right prompt
+build_rprompt() {
+  prompt_time
+}
+
 PROMPT='
 %{%f%b%k%}$(build_prompt)
 %{${fg_bold[default]}%}$(prompt_char) %{$reset_color%}'
+RPROMPT='$(build_rprompt)'
